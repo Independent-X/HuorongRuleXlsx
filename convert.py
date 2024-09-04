@@ -6,6 +6,15 @@ import openpyxl
 from typing import *
 
 def json_to_xlsx(json_path:str, xlsx_path:str, json_encoding="utf-8") -> None:
+    '''该函数有以下参数：
+json_path: 从火绒导出的 json 规则文件路径
+xlsx_path: 想要创建的 xlsx 文件路径和名称
+json_encoding: 从火绒导出的 json 规则文件编码格式
+
+使用该函数，可以将火绒的 json 规则文件转换为 xlsx 文件。
+
+如果希望将 xlsx 文件重新转换为 json 规则文件，则在编辑 xlsx 文件时，要求该文件第一个 sheet 的前5列、其格式不能被改变。
+'''
     with open(json_path, mode="r", encoding=json_encoding) as file:
         data = json.load(file)
     workbook = openpyxl.Workbook()
@@ -17,6 +26,13 @@ def json_to_xlsx(json_path:str, xlsx_path:str, json_encoding="utf-8") -> None:
     workbook.save(xlsx_path)
 
 def xlsx_to_json(json_path:str, xlsx_path:str, json_encoding="utf-8") -> None:
+    '''该函数有以下参数：
+json_path: 想要创建的 json 文件路径和名称
+xlsx_path: 用 json_to_xlsx 函数导出的 xlsx 规则文件路径。
+json_encoding: json 规则文件编码格式
+
+使用该函数，可以将 xlsx 文件转换为 json 文件。
+'''
     data = list(openpyxl.load_workbook(xlsx_path).worksheets[0].values)[1:]
     init_data = {"ver":"5.0","tag":"hipsuser_auto","data":{}}
     for treatment in data:
