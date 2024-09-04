@@ -15,6 +15,7 @@ action_type:
 * 2 -> read
 * 4 -> edit
 * 8 -> delete
+
 treatment:
 * 0 -> auto_allow
 * 3 -> auto_ban
